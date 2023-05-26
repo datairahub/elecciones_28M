@@ -155,9 +155,6 @@ class ElectionMap {
         this.onYearButtonClick(e);
       });
     });
-    document.getElementById('map-selector').addEventListener('change', (e) => {
-      this.onSelectChange(e);
-    });
     document.getElementById('zoom-out').addEventListener('click', (e) => {
       this.map.flyTo({
         center: this.initialCenter,
@@ -375,15 +372,5 @@ class ElectionMap {
 
     // Add class to current button
     e.target.classList.add('is-active');
-  };
-
-  onSelectChange(e) {
-    if (!e.target.value) return;
-    
-    // Apply change
-    const [fill, year] = e.target.value.split('-');
-    this.currentYear = year;
-    this.currentFill = fill;
-    this.setMapFill();
   };
 };

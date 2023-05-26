@@ -24,29 +24,11 @@
           <button class="map-control map-control--year js-year" data-year="2019">2019</button>
         </div>
         <div class="map-controls-fill">
-          <button class="map-control js-control is-active" data-fill="winner">Ganador</button>
-          <button class="map-control js-control" data-fill="pp">PP</button>
-          <button class="map-control js-control" data-fill="psoe">PSOE</button>
-          <button class="map-control js-control" data-fill="podemos">Podemos+Comunes</button>
-          <button class="map-control js-control" data-fill="vox">Vox</button>
-        </div>
-        <div class="map-controls-select">
-          <select name="selector" id="map-selector" placeholder="Selecciona un mapa">
-            <optgroup label="2023">
-              <option value="winner-2023">Ganador</option>
-              <option value="pp-2023">PP</option>
-              <option value="psoe-2023">PSOE</option>
-              <option value="podemos-2023">Podemos+Comunes</option>
-              <option value="vox-2023">Vox</option>
-            </optgroup>
-            <optgroup label="2019">
-              <option value="winner-2019">Ganador</option>
-              <option value="pp-2019">PP</option>
-              <option value="psoe-2019">PSOE</option>
-              <option value="podemos-2019">Podemos+Comunes</option>
-              <option value="vox-2019">Vox</option>
-            </optgroup>
-          </select>
+          <button class="map-control map-control--fill js-control is-active" data-fill="winner">Ganador</button>
+          <button class="map-control map-control--fill js-control" data-fill="pp">PP</button>
+          <button class="map-control map-control--fill js-control" data-fill="psoe">PSOE</button>
+          <button class="map-control map-control--fill js-control" data-fill="podemos">Podemos+Comunes</button>
+          <button class="map-control map-control--fill js-control" data-fill="vox">Vox</button>
         </div>
       </div>
     </div>
@@ -58,7 +40,7 @@
         <img src="img/spain.svg" alt="Zoom out">
       </button>
     </div>
-
+    <!-- end map zoom out -->
 
     <!-- legend -->
     <div id="legends" class="map-overflow map-overflow-bottom map-overflow-right hidden">
@@ -120,8 +102,8 @@
       zoom: isMobile ? 4.5 : 5, // Zoom inicial del mapa
       minZoom: isMobile ? 4.5 : 5, // Mínimo zoom que el usuario puede ver
       initialSelect: 'winner2019', // Representación (colores) inicial del mapa
-      hash: true, // Si añadir las coordenadas a la url cuando el usuario se mueva por el mapa
-      scrollZoom: true, // Si habilitar o no el zoom con el scroll del ratón
+      hash: false, // Si añadir las coordenadas a la url cuando el usuario se mueva por el mapa
+      scrollZoom: false, // Si habilitar o no el zoom con el scroll del ratón
       partyColors: colors,
     });
   </script>
