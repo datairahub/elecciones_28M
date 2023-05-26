@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Elecciones Municipales 2023 - La Vanguardia</title>
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js"></script>
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css" rel="stylesheet" type="text/css"/>
+  <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.min.js"></script>
+  <link href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.css" rel="stylesheet" type="text/css"/>
+  <link href="./styles.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+  <div class="map-wrapper">
+    <div id="map-container" style="width: 100vw; height: 100vh;"></div>
+
+    <!-- map controls -->
+    <div id="custom-controls" class="map-overflow map-controls hidden">
+      <div class="map-overflow-wrap">
+        <div class="map-controls-hint">Selecciona un mapa:</div>
+        <div class="map-controls-years">
+          <button class="map-control map-control--year js-year is-active" data-year="2023">2023</button>
+          <button class="map-control map-control--year js-year" data-year="2019">2019</button>
+        </div>
+        <div class="map-controls-fill">
+          <button class="map-control js-control is-active" data-fill="winner">Ganador</button>
+          <button class="map-control js-control" data-fill="pp">PP</button>
+          <button class="map-control js-control" data-fill="psoe">PSOE</button>
+          <button class="map-control js-control" data-fill="podemos">Podemos+Comunes</button>
+          <button class="map-control js-control" data-fill="vox">Vox</button>
+        </div>
+        <div class="map-controls-select">
+          <select name="selector" id="map-selector" placeholder="Selecciona un mapa">
+            <optgroup label="2023">
+              <option value="winner-2023">Ganador</option>
+              <option value="pp-2023">PP</option>
+              <option value="psoe-2023">PSOE</option>
+              <option value="podemos-2023">Podemos+Comunes</option>
+              <option value="vox-2023">Vox</option>
+            </optgroup>
+            <optgroup label="2019">
+              <option value="winner-2019">Ganador</option>
+              <option value="pp-2019">PP</option>
+              <option value="psoe-2019">PSOE</option>
+              <option value="podemos-2019">Podemos+Comunes</option>
+              <option value="vox-2019">Vox</option>
+            </optgroup>
+          </select>
+        </div>
+      </div>
+    </div>
+    <!-- end map controls -->
+
+    <!-- map zoom out -->
+    <div id="custom-buttons" class="map-overflow map-buttons hidden">
+      <button id="zoom-out" class="zoom-out" title="Zoom out">
+        <img src="img/spain.svg" alt="Zoom out">
+      </button>
+    </div>
+
+
+    <!-- legend -->
+    <div id="legends" class="map-overflow map-overflow-bottom map-overflow-right hidden">
+      <div class="map-overflow-wrap">
+        <header id="legends-head" class="map-legends-header"></header>
+        <div id="legends-body" class="map-legends-body"></div>
+      </div>
+    </div>
+    <!-- end legend -->
+
+  </div>
+  <script src="./map.js"></script>
+  <script>
+    const colors = {
+      "PSOE": "#e02020",
+      "PP": "#02a2dd",
+      "VOX": "#aad656",
+      "CS": "#ea8046",
+      "IU": "#a90606",
+      "UP": "#7c4080",
+      "UPYD": "#E9008C",
+      "MASMAD": "#3eb1a2",
+      "JUNTS": "#20C0B2",
+      "ERC": "#ffb232",
+      "CUP": "#ffed00",
+      "CHA": "#F8D04A",
+      "PAR": "#fea000",
+      "NA+": "#1c699C",
+      "GBAI": "#F75E42",
+      "PNV": "#16823b",
+      "BILDU": "#c7d892",
+      "PRC": "#C2CE0C",
+      "FORO": "#17375e",
+      "BNG": "#95ccf7",
+      "CCA": "#eddc2e",
+      "NCA": "#85BD42",
+      "COMPROMIS": "#bf5237",
+      "UPL": "#C71585",
+      "PACMA": "#00FF7F",
+      "MES": "#c1c929",
+      "ELPI": "#62D2B1",
+      "CPM": "#488A43",
+      "CABALLAS": "#FFB232",
+      "ENCOMU": "#874e77",
+      "AXSI": "#83c041",
+      "SSP": "#E00686",
+      "MDYC": "#429654",
+      "ASG": "#b61414",
+    };
+
+    const isMobile = window.innerWidth < 900;
+
+    const map = new ElectionMap('pk.eyJ1Ijoic2FpZ2VzcCIsImEiOiJjaWZpZmR2c3gwMHhjdTZseWdoMTJyNDV1In0.w1sa0OerC-d2bELEaiWWSA', {
+      container: 'map-container', // ID del elemento html donde se cargará el mapa
+      style: 'mapbox://styles/laur05/cli3c8vra00kw01qu7qf5d8v7?fresh=true', // URL del estilo base
+      source: 'mapbox://saigesp.ine_census?fresh=true', // URL de la fuente de datos
+      sourceLayer: 'ine_census', // Nombre de la capa de la fuente de datos
+      center: [-3.692806, 40.423602], // Localización inicial del mapa
+      zoom: isMobile ? 4.5 : 5, // Zoom inicial del mapa
+      minZoom: isMobile ? 4.5 : 5, // Mínimo zoom que el usuario puede ver
+      initialSelect: 'winner2019', // Representación (colores) inicial del mapa
+      hash: true, // Si añadir las coordenadas a la url cuando el usuario se mueva por el mapa
+      scrollZoom: true, // Si habilitar o no el zoom con el scroll del ratón
+      partyColors: colors,
+    });
+  </script>
+</body>
+</html>
