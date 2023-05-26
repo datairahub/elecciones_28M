@@ -55,7 +55,7 @@ class ElectionMap {
     this.source = source;
     this.sourceLayer = sourceLayer;
     this.initialSelect = initialSelect || '2023winner';
-    this.initialCenter = center;
+    this.initialCenter = [...center];
     this.initialZoom = zoom;
     this.partyColors = partyColors;
 
@@ -178,10 +178,10 @@ class ElectionMap {
       });
     });
     document.getElementById('zoom-out').addEventListener('click', (e) => {
-      this.map.flyTo({
+      this.map.easeTo({
         center: this.initialCenter,
         zoom: this.initialZoom,
-        essential: false,
+        duration: 1600,
         });
     });
 
@@ -268,17 +268,17 @@ class ElectionMap {
           <tr>
             <td>Participación</td>
             <td class="cr">${section.last_turnout}%</td>
-            <td class="cr">?%</td>
+            <td class="cr">${section.curr_turnout}%</td>
           </tr>
           <tr>
             <td>Votos en blanco</td>
             <td class="cr">${section.last_votes_white}</td>
-            <td class="cr">?</td>
+            <td class="cr">${section.curr_votes_white}</td>
           </tr>
           <tr>
             <td>Votos nulos</td>
             <td class="cr">${section.last_votes_null}</td>
-            <td class="cr">?</td>
+            <td class="cr">${section.curr_votes_null}</td>
           </tr>
         </tbody>
       </table>
@@ -286,18 +286,18 @@ class ElectionMap {
   }
 
   popupResultsTable(p) {
-    if (!p.last_results) return '';
-    const lastResults = this.popupStrResultsToObj(p.last_results);
-    const rows = Object.keys(lastResults)
-      .sort((a, b) => lastResults[b].votes - lastResults[a].votes)
+    if (!p.curr_results) return '';
+    const results = this.popupStrResultsToObj(p.curr_results);
+    const rows = Object.keys(results)
+      .sort((a, b) => results[b].votes - results[a].votes)
       .map((d) => `
         <tr>
           <td>
             <span class="mappop-partycolor" style="background: ${this.partyColors[d]}"></span>
-            <span class="mappop-partyname">${lastResults[d].name}</span>
+            <span class="mappop-partyname">${results[d].name}</span>
           </td>
-          <td class="cr">${lastResults[d].votes}</td>
-          <td class="cr">${lastResults[d].percent}%</td>
+          <td class="cr">${results[d].votes}</td>
+          <td class="cr">${results[d].percent}%</td>
         </tr>
       `);
     return `
