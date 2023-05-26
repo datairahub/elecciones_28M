@@ -20,10 +20,20 @@ class ElectionMap {
   fillLayerFillOpacity = {
     lastWhite: 0.7,
     winner2019: ['interpolate', ["linear", 1], ["get", "last_winner1_val"], 0, 0, 50, 0.9],
+    winner2023: ['interpolate', ["linear", 1], ["get", "curr_winner1_val"], 0, 0, 50, 0.9],
+    pp2019: ['interpolate', ['linear', 1], ['get', 'last_PP'], 9.99, 0.05, 10, 0.2, 19.9, 0.2, 20, 0.4, 29.99, 0.4, 30, 0.6, 39.99, 0.6, 40, 0.8],
+    pp2023: ['interpolate', ['linear', 1], ['get', 'curr_PP'], 9.99, 0.05, 10, 0.2, 19.9, 0.2, 20, 0.4, 29.99, 0.4, 30, 0.6, 39.99, 0.6, 40, 0.8],
+    psoe2019: ['interpolate', ['linear', 1], ['get', 'last_PSOE'], 9.99, 0.05, 10, 0.2, 19.9, 0.2, 20, 0.4, 29.99, 0.4, 30, 0.6, 39.99, 0.6, 40, 0.8],
+    psoe2023: ['interpolate', ['linear', 1], ['get', 'curr_PSOE'], 9.99, 0.05, 10, 0.2, 19.9, 0.2, 20, 0.4, 29.99, 0.4, 30, 0.6, 39.99, 0.6, 40, 0.8],
+    podemos2019: ['interpolate', ['linear', 1], ['get', 'last_UP'], 9.99, 0.05, 10, 0.2, 19.9, 0.2, 20, 0.4, 29.99, 0.4, 30, 0.6, 39.99, 0.6, 40, 0.8],
+    podemos2023: ['interpolate', ['linear', 1], ['get', 'curr_UP'], 9.99, 0.05, 10, 0.2, 19.9, 0.2, 20, 0.4, 29.99, 0.4, 30, 0.6, 39.99, 0.6, 40, 0.8],
+    vox2019: ['interpolate', ['linear', 1], ['get', 'last_VOX'], 9.99, 0.05, 10, 0.2, 19.9, 0.2, 20, 0.4, 29.99, 0.4, 30, 0.6, 39.99, 0.6, 40, 0.8],
+    vox2023: ['interpolate', ['linear', 1], ['get', 'curr_VOX'], 9.99, 0.05, 10, 0.2, 19.9, 0.2, 20, 0.4, 29.99, 0.4, 30, 0.6, 39.99, 0.6, 40, 0.8],
   };
   fillLayerFilter = {
     lastWhite: ['has', 'last_results'],
     winner2019: ['has', 'last_winner1_val'],
+    winner2023: ['has', 'curr_winner1_val'],
   };
   partyColors = {};
   initialCenter = null;
@@ -95,6 +105,18 @@ class ElectionMap {
         ...Object.entries(this.partyColors).flat(),
         "#999"
       ],
+      winner2023: ["match", ["get", "curr_winner1_key"],
+        ...Object.entries(this.partyColors).flat(),
+        "#999"
+      ],
+      pp2019: ["case", ["has", "last_PP"], this.partyColors.PP, "#F7F7F7"],
+      pp2023: ["case", ["has", "curr_PP"], this.partyColors.PP, "#F7F7F7"],
+      psoe2019: ["case", ["has", "last_PSOE"], this.partyColors.PSOE, "#F7F7F7"],
+      psoe2023: ["case", ["has", "curr_PSOE"], this.partyColors.PSOE, "#F7F7F7"],
+      podemos2019: ["case", ["has", "last_UP"], this.partyColors.UP, "#F7F7F7"],
+      podemos2023: ["case", ["has", "curr_UP"], this.partyColors.UP, "#F7F7F7"],
+      vox2019: ["case", ["has", "last_VOX"], this.partyColors.VOX, "#F7F7F7"],
+      vox2023: ["case", ["has", "curr_VOX"], this.partyColors.VOX, "#F7F7F7"],
     };
   }
 
@@ -201,7 +223,7 @@ class ElectionMap {
   }
 
   onMouseClick(e) {
-    // console.log(e.features[0].properties);
+    console.log(e.features[0].properties);
   }
 
   popupHtml(section) {

@@ -321,20 +321,11 @@ table {
 .mapboxgl-popup-anchor-top {
     top: 20px;
 }
-.mapboxgl-popup-anchor-top .mapboxgl-popup-tip {
-    border-bottom-color: #001c4c;
-}
 .mapboxgl-popup-anchor-top-right {
     left: -15px;
 }
-.mapboxgl-popup-anchor-top-right .mapboxgl-popup-tip {
-    border-bottom-color: #001c4c;
-}
 .mapboxgl-popup-anchor-top-left {
     left: 15px;
-}
-.mapboxgl-popup-anchor-top-left .mapboxgl-popup-tip {
-    border-bottom-color: #001c4c;
 }
 .mapboxgl-popup-anchor-bottom {
     top: -15px;
@@ -350,6 +341,22 @@ table {
 }
 .mapboxgl-popup-anchor-right {
     left: -15px
+}
+.mapboxgl-popup-anchor-right .mapboxgl-popup-tip {
+    border-left-color: rgba(0, 0, 0, 0.65);
+}
+.mapboxgl-popup-anchor-left .mapboxgl-popup-tip {
+    border-right-color: rgba(0, 0, 0, 0.65);
+}
+.mapboxgl-popup-anchor-top .mapboxgl-popup-tip,
+.mapboxgl-popup-anchor-top-right .mapboxgl-popup-tip,
+.mapboxgl-popup-anchor-top-left .mapboxgl-popup-tip {
+    border-bottom-color: rgba(0, 0, 0, 0.65);
+}
+.mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip,
+.mapboxgl-popup-anchor-bottom-right .mapboxgl-popup-tip,
+.mapboxgl-popup-anchor-bottom-left .mapboxgl-popup-tip {
+    border-top-color: rgba(0, 0, 0, 0.65);
 }
 
 @media screen and (min-width: 349px) {
