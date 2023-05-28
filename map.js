@@ -5,33 +5,21 @@ class ElectionMap {
   hoveredStateId = null;
   currentYear = '2023';
   currentFill = 'winner';
-  scales = {
-    lastWhite: [
-      {value: 0,    color: '#ffffff', label: '0',},
-      {value: 12.5, color: '#cccccc', label: '',},
-      {value: 25,   color: '#888888', label: '',},
-      {value: 37.5, color: '#444444', label: '',},
-      {value: 50,   color: '#000000', label: '50+',},
-    ],
-  };
-  legendLabels = {
-    lastWhite: 'Votos en blanco (2019)',
-  };
+  legendScales = {};
+  legendLabels = {};
   fillLayerFillOpacity = {
-    lastWhite: 0.7,
     winner2019: ['interpolate', ["linear", 1], ["get", "last_winner1_val"], 0, 0, 50, 0.9],
     winner2023: ['interpolate', ["linear", 1], ["get", "curr_winner1_val"], 0, 0, 50, 0.9],
-    pp2019: ['interpolate', ['linear', 1], ['get', 'last_PP'], 9.99, 0.05, 10, 0.2, 19.9, 0.2, 20, 0.4, 29.99, 0.4, 30, 0.6, 39.99, 0.6, 40, 0.8],
-    pp2023: ['interpolate', ['linear', 1], ['get', 'curr_PP'], 9.99, 0.05, 10, 0.2, 19.9, 0.2, 20, 0.4, 29.99, 0.4, 30, 0.6, 39.99, 0.6, 40, 0.8],
-    psoe2019: ['interpolate', ['linear', 1], ['get', 'last_PSOE'], 9.99, 0.05, 10, 0.2, 19.9, 0.2, 20, 0.4, 29.99, 0.4, 30, 0.6, 39.99, 0.6, 40, 0.8],
-    psoe2023: ['interpolate', ['linear', 1], ['get', 'curr_PSOE'], 9.99, 0.05, 10, 0.2, 19.9, 0.2, 20, 0.4, 29.99, 0.4, 30, 0.6, 39.99, 0.6, 40, 0.8],
-    podemos2019: ['interpolate', ['linear', 1], ['get', 'last_UP'], 0.00, 0.05, 9.99, 0.05, 10, 0.4, 19.9, 0.4, 20, 0.6, 29.9, 0.6, 30, 0.8, 39., 0.8, 40, 0.9],
-    podemos2023: ['interpolate', ['linear', 1], ['get', 'curr_UP'], 0.00, 0.05, 9.99, 0.05, 10, 0.4, 19.9, 0.4, 20, 0.6, 29.9, 0.6, 30, 0.8, 39., 0.8, 40, 0.9],
-    vox2019: ['interpolate', ['linear', 1], ['get', 'last_VOX'], 0.00, 0.05, 9.99, 0.05, 10, 0.4, 19.9, 0.4, 20, 0.6, 29.9, 0.6, 30, 0.8, 39., 0.8, 40, 0.9],
-    vox2023: ['interpolate', ['linear', 1], ['get', 'curr_VOX'], 0.00, 0.05, 9.99, 0.05, 10, 0.4, 19.9, 0.4, 20, 0.6, 29.9, 0.6, 30, 0.8, 39., 0.8, 40, 0.9],
+    pp2019: ['interpolate', ['linear', 1], ['get', 'last_PP'], 9.99, 0.05, 10, 0.2, 19.99, 0.2, 20, 0.4, 29.99, 0.4, 30, 0.6, 39.99, 0.6, 40, 0.8],
+    pp2023: ['interpolate', ['linear', 1], ['get', 'curr_PP'], 9.99, 0.05, 10, 0.2, 19.99, 0.2, 20, 0.4, 29.99, 0.4, 30, 0.6, 39.99, 0.6, 40, 0.8],
+    psoe2019: ['interpolate', ['linear', 1], ['get', 'last_PSOE'], 9.99, 0.05, 10, 0.2, 19.99, 0.2, 20, 0.4, 29.99, 0.4, 30, 0.6, 39.99, 0.6, 40, 0.8],
+    psoe2023: ['interpolate', ['linear', 1], ['get', 'curr_PSOE'], 9.99, 0.05, 10, 0.2, 19.99, 0.2, 20, 0.4, 29.99, 0.4, 30, 0.6, 39.99, 0.6, 40, 0.8],
+    podemos2019: ['interpolate', ['linear', 1], ['get', 'last_UP'], 9.99, 0.05, 10, 0.4, 19.99, 0.4, 20, 0.6, 29.99, 0.6, 30, 0.8, 39.99, 0.8, 40, 0.9],
+    podemos2023: ['interpolate', ['linear', 1], ['get', 'curr_UP'], 9.99, 0.05, 10, 0.4, 19.99, 0.4, 20, 0.6, 29.99, 0.6, 30, 0.8, 39.99, 0.8, 40, 0.9],
+    vox2019: ['interpolate', ['linear', 1], ['get', 'last_VOX'], 9.99, 0.05, 10, 0.4, 19.99, 0.4, 20, 0.6, 29.99, 0.6, 30, 0.8, 39.99, 0.8, 40, 0.9],
+    vox2023: ['interpolate', ['linear', 1], ['get', 'curr_VOX'], 9.99, 0.05, 10, 0.4, 19.99, 0.4, 20, 0.6, 29.99, 0.6, 30, 0.8, 39.99, 0.8, 40, 0.9],
   };
   fillLayerFilter = {
-    lastWhite: ['has', 'last_results'],
     winner2019: ['has', 'last_winner1_val'],
     winner2023: ['has', 'curr_winner1_val'],
   };
@@ -81,6 +69,7 @@ class ElectionMap {
       closeOnClick: false,
     });
 
+    this.setLegendScales();
     this.setLayerOptions();
     this.map.on('load', () => {
       this.onMapLoaded();
@@ -96,11 +85,79 @@ class ElectionMap {
     });
   }
 
+  setLegendScales() {
+    this.legendLabels = {
+      pp2019: 'Porcentaje de voto',
+      pp2023: 'Porcentaje de voto',
+      psoe2019: 'Porcentaje de voto',
+      psoe2023: 'Porcentaje de voto',
+      podemos2019: 'Porcentaje de voto',
+      podemos2023: 'Porcentaje de voto',
+      vox2019: 'Porcentaje de voto',
+      vox2023: 'Porcentaje de voto',
+    };
+    this.legendScales = {
+      pp2019: [
+        {value: 0,  color: `${this.partyColors.PP}0d`, label: '0-10',},
+        {value: 10, color: `${this.partyColors.PP}33`, label: '10-20',},
+        {value: 20, color: `${this.partyColors.PP}66`, label: '20-30',},
+        {value: 30, color: `${this.partyColors.PP}99`, label: '30-40',},
+        {value: 40, color: `${this.partyColors.PP}cc`, label: '+40',},
+      ],
+      pp2023: [
+        {value: 0,  color: `${this.partyColors.PP}0d`, label: '0-10',},
+        {value: 10, color: `${this.partyColors.PP}33`, label: '10-20',},
+        {value: 20, color: `${this.partyColors.PP}66`, label: '20-30',},
+        {value: 30, color: `${this.partyColors.PP}99`, label: '30-40',},
+        {value: 40, color: `${this.partyColors.PP}cc`, label: '+40',},
+      ],
+      psoe2019: [
+        {value: 0,  color: `${this.partyColors.PSOE}0d`, label: '0-10',},
+        {value: 10, color: `${this.partyColors.PSOE}33`, label: '10-20',},
+        {value: 20, color: `${this.partyColors.PSOE}66`, label: '20-30',},
+        {value: 30, color: `${this.partyColors.PSOE}99`, label: '30-40',},
+        {value: 40, color: `${this.partyColors.PSOE}cc`, label: '+40',},
+      ],
+      psoe2023: [
+        {value: 0,  color: `${this.partyColors.PSOE}0d`, label: '0-10',},
+        {value: 10, color: `${this.partyColors.PSOE}33`, label: '10-20',},
+        {value: 20, color: `${this.partyColors.PSOE}66`, label: '20-30',},
+        {value: 30, color: `${this.partyColors.PSOE}99`, label: '30-40',},
+        {value: 40, color: `${this.partyColors.PSOE}cc`, label: '+40',},
+      ],
+      podemos2019: [
+        {value: 0,  color: `${this.partyColors.PODEMOS}0d`, label: '0-10',},
+        {value: 10, color: `${this.partyColors.PODEMOS}66`, label: '10-20',},
+        {value: 20, color: `${this.partyColors.PODEMOS}99`, label: '20-30',},
+        {value: 30, color: `${this.partyColors.PODEMOS}cc`, label: '30-40',},
+        {value: 40, color: `${this.partyColors.PODEMOS}e6`, label: '+40',},
+      ],
+      podemos2023: [
+        {value: 0,  color: `${this.partyColors.PODEMOS}0d`, label: '0-10',},
+        {value: 10, color: `${this.partyColors.PODEMOS}66`, label: '10-20',},
+        {value: 20, color: `${this.partyColors.PODEMOS}99`, label: '20-30',},
+        {value: 30, color: `${this.partyColors.PODEMOS}cc`, label: '30-40',},
+        {value: 40, color: `${this.partyColors.PODEMOS}e6`, label: '+40',},
+      ],
+      vox2019: [
+        {value: 0,  color: `${this.partyColors.VOX}0d`, label: '0-10',},
+        {value: 10, color: `${this.partyColors.VOX}66`, label: '10-20',},
+        {value: 20, color: `${this.partyColors.VOX}99`, label: '20-30',},
+        {value: 30, color: `${this.partyColors.VOX}cc`, label: '30-40',},
+        {value: 40, color: `${this.partyColors.VOX}e6`, label: '+40',},
+      ],
+      vox2023: [
+        {value: 0,  color: `${this.partyColors.VOX}0d`, label: '0-10',},
+        {value: 10, color: `${this.partyColors.VOX}66`, label: '10-20',},
+        {value: 20, color: `${this.partyColors.VOX}99`, label: '20-30',},
+        {value: 30, color: `${this.partyColors.VOX}cc`, label: '30-40',},
+        {value: 40, color: `${this.partyColors.VOX}e6`, label: '+40',},
+      ],
+    };
+  }
+
   setLayerOptions() {
     this.fillLayerFillColor = {
-      lastWhite: ['interpolate', ['linear', 1], ['get', 'last_votes_white'],
-        ...this.scales.lastWhite.map((d) => [d.value, d.color]).flat(),
-      ],
       winner2019: ["match", ["get", "last_winner1_key"],
         ...Object.entries(this.partyColors).flat(),
         "#999"
@@ -340,7 +397,7 @@ class ElectionMap {
     const container = document.getElementById('legends-body');
     container.innerHTML = '';
   
-    this.scales[scaleName].filter((d) => !d.hideLegend).forEach((l) => {
+    this.legendScales[scaleName].filter((d) => !d.hideLegend).forEach((l) => {
       container.innerHTML += `
         <div class="map-legend">
           <div class="map-legend-color" style="background-color: ${l.color}"></div>
@@ -359,7 +416,7 @@ class ElectionMap {
     this.map.setPaintProperty(this.fillLayerId, 'fill-outline-color', this.fillLayerFillColor[fillName]);
 
     // Set map legend
-    this.setLegend(this.currentFill);
+    this.setLegend(fillName);
   }
 
   onControlButtonClick(e) {

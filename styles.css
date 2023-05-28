@@ -226,22 +226,40 @@ table {
 }
 
 /* Map legends */
+.map-legends {
+    position: absolute;
+    z-index: 1;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #F8F8F8;
+    border: 1px solid #DDDDDD;
+    color: #333333;
+    font-size: 14px;
+    width: 190px;
+    margin: 0 0 20px 20px;
+}
+.map-legends-wrap {
+    padding: 10px;
+}
 .map-legends-header {
-    margin-bottom: 5px;
+    margin-bottom: 10px;
+    font-weight: 700;
 }
 .map-legends-body {
     display: flex;
-    font-size: 10px;
+    font-size: 11px;
+    color: #999999;
 }
 .map-legends-body > div {
     flex: 1 0 20px;
     width: 20px;
 }
 .map-legend-color {
-    height: 5px;
+    height: 9px;
 }
 .map-legend-label {
-    margin-top: 2px;
+    margin-top: 5px;
     text-align: center;
 }
 
