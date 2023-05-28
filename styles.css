@@ -305,6 +305,7 @@ table {
 }
 .mappop-table th {
     font-weight: 700;
+    text-align: left;
 }
 .mappop-table td {
     border-bottom: 1px solid #cdd3df;

@@ -7,6 +7,9 @@ class ElectionMap {
   currentFill = 'winner';
   legendScales = {};
   legendLabels = {};
+  colorScales = {
+    PiGY: [-50, '#8e0152', -40, '#c51b7d', -30, '#de77ae', -20, '#f1b6da', -10, '#fde0ef', 0, '#f7f7f7', 10, '#e6f5d0', 20, '#b8e186', 30, '#7fbc41', 40, '#4d9221', 50, '#276419'],
+  }
   fillLayerFillOpacity = {
     winner2019: ['interpolate', ["linear", 1], ["get", "last_winner1_val"], 0, 0, 50, 0.9],
     winner2023: ['interpolate', ["linear", 1], ["get", "curr_winner1_val"], 0, 0, 50, 0.9],
@@ -22,6 +25,10 @@ class ElectionMap {
   fillLayerFilter = {
     winner2019: ['has', 'last_winner1_val'],
     winner2023: ['has', 'curr_winner1_val'],
+    ppdiff: ['has', 'diff_PP'],
+    psoediff: ['has', 'diff_PSOE'],
+    podemosdiff: ['has', 'diff_UP'],
+    voxdiff: ['has', 'diff_VOX'],
   };
   partyColors = {};
   initialCenter = null;
@@ -166,14 +173,19 @@ class ElectionMap {
         ...Object.entries(this.partyColors).flat(),
         "#999"
       ],
+      winnerdiff: ["match", ["get", "diff_winner1"], 1, "#7fbc41", "#F7F7F7"],
       pp2019: ["case", ["has", "last_PP"], this.partyColors.PP, "#F7F7F7"],
       pp2023: ["case", ["has", "curr_PP"], this.partyColors.PP, "#F7F7F7"],
+      ppdiff: ['interpolate', ['linear', 1], ['get', 'diff_PP'], ...this.colorScales.PiGY],
       psoe2019: ["case", ["has", "last_PSOE"], this.partyColors.PSOE, "#F7F7F7"],
       psoe2023: ["case", ["has", "curr_PSOE"], this.partyColors.PSOE, "#F7F7F7"],
+      psoediff: ['interpolate', ['linear', 1], ['get', 'diff_PSOE'], ...this.colorScales.PiGY],
       podemos2019: ["case", ["has", "last_UP"], this.partyColors.UP, "#F7F7F7"],
       podemos2023: ["case", ["has", "curr_UP"], this.partyColors.UP, "#F7F7F7"],
+      podemosdiff: ['interpolate', ['linear', 1], ['get', 'diff_UP'], ...this.colorScales.PiGY],
       vox2019: ["case", ["has", "last_VOX"], this.partyColors.VOX, "#F7F7F7"],
       vox2023: ["case", ["has", "curr_VOX"], this.partyColors.VOX, "#F7F7F7"],
+      voxdiff: ['interpolate', ['linear', 1], ['get', 'diff_VOX'], ...this.colorScales.PiGY],
     };
   }
 
@@ -343,8 +355,17 @@ class ElectionMap {
   }
 
   popupResultsTable(p) {
-    if (!p.curr_results) return '';
-    const results = this.popupStrResultsToObj(p.curr_results);
+    let results;
+    let year;
+    if (this.currentYear === '2019') {
+      if (!p.last_results) return '';
+      results = this.popupStrResultsToObj(p.last_results);
+      year = 2019;
+    } else {
+      if (!p.curr_results) return '';
+      results = this.popupStrResultsToObj(p.curr_results);
+      year = 2023;
+    }
     const rows = Object.keys(results)
       .sort((a, b) => results[b].votes - results[a].votes)
       .map((d) => `
@@ -361,7 +382,7 @@ class ElectionMap {
       <table class="mappop-table mappop-table--results">
         <thead>
           <tr>
-            <th></th>
+            <th>Resultados ${year}</th>
             <th class="cr">Votos</th>
             <th class="cr">% Voto</th>
           </tr>
