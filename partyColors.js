@@ -9,6 +9,7 @@ window._partyColors = {
     "IU": "#a90606",
     "IUMASPAISIAS": "#a90606",
     "ADELANTE": "#a90606",
+    "PARALAGENTE": "#a90606",
     "UP": "#7c4080",
     "PODEMOS": "#7c4080",
     "UPYD": "#E9008C",
@@ -85,4 +86,5 @@ window._partyColors = {
     "UPN": "#F19DC3",
     "PUMJ": "#0CB4CE",
     "CC": "#B0D7EB",
+    "ARAPL": "#ffa07a",
 }
