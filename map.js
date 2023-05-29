@@ -230,7 +230,7 @@ class ElectionMap {
       accessToken: mapboxgl.accessToken,
       language: 'es',
       country: 'es',
-      placeholder: 'Busca tu municipio',
+      placeholder: 'Busca tu calle',
     }));
 
     // Display custom controls and add event listeners
