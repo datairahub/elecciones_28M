@@ -14,6 +14,7 @@ window._partyColors = {
     "UP": "#7c4080",
     "PODEMOS": "#7c4080",
     "UPYD": "#E9008C",
+    "MM": "#3eb1a2",
     "MASMAD": "#3eb1a2",
     "MASVILLARRASA": "#3eb1a2",
     "MASPUEBLOLACUEVA": "#3eb1a2",
