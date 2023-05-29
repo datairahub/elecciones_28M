@@ -228,8 +228,10 @@ class ElectionMap {
     // Add search box
     this.map.addControl(new MapboxGeocoder({
       accessToken: mapboxgl.accessToken,
+      mapboxgl: mapboxgl,
       language: 'es',
       country: 'es',
+      types: 'region,place,locality,address',
       placeholder: 'Busca tu calle',
     }));
 
