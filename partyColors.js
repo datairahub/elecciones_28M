@@ -1,5 +1,6 @@
 window._partyColors = {
     "PSOE": "#e02020",
+    "PSVPSOE": "#e02020",
     "CP": "#e02020",
     "PSC": "#e02020",
     "PP": "#02a2dd",
@@ -34,6 +35,7 @@ window._partyColors = {
     "JXG": "#20C0B2",
     "ERC": "#FFB232",
     "ERCESQUERRA": "#FFB232",
+    "ESQUERRAREPUBLICANADECATALUNYAACORDMUNICIPAL": "#FFB232",
     "ERCAM": "#FFB232",
     "CUP": "#FEED14",
     "CUPAMUNT": "#FEED14",
