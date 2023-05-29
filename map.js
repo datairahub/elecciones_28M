@@ -336,8 +336,8 @@ class ElectionMap {
         <tbody>
           <tr>
             <td>Participación</td>
-            <td class="cr">${section.last_turnout}%</td>
-            <td class="cr">${section.curr_turnout}%</td>
+            <td class="cr">${section.last_census > 1 ? section.last_turnout : '?'}%</td>
+            <td class="cr">${section.curr_census > 1 ? section.curr_turnout : '?'}%</td>
           </tr>
           <tr>
             <td>Votos en blanco</td>
