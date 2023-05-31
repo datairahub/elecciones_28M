@@ -80,19 +80,21 @@
       mapLoaded = true;
     }
 
+    loadMap();
+
     // Remove Mapbox service worker cache
-    if (caches && caches.keys()) {
-      caches.keys().then((keys) => {
-        Promise.all(keys.filter((k) => k === 'mapbox-tiles').map((k) => caches.delete(k)))
-          .then(() => { loadMap() })
-          .catch(() => { loadMap() });
-      })
-    } else loadMap();
+    // if (caches && caches.keys()) {
+    //   caches.keys().then((keys) => {
+    //     Promise.all(keys.filter((k) => k === 'mapbox-tiles').map((k) => caches.delete(k)))
+    //       .then(() => { loadMap() })
+    //       .catch(() => { loadMap() });
+    //   })
+    // } else loadMap();
 
     // Fallback if map has not been loaded
-    setTimeout(() => {
-      if (!mapLoaded) loadMap();
-    }, 4000)
+    // setTimeout(() => {
+    //   if (!mapLoaded) loadMap();
+    // }, 4000)
     
   </script>
 </body>
